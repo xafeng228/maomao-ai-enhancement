@@ -1,10 +1,65 @@
+#!/bin/bash
+# 毛毛AI增强项目 - GitHub更新脚本
+
+echo "🚀 毛毛AI增强项目 - GitHub更新"
+echo "================================"
+
+# 检查仓库是否存在
+if [ ! -d "maomao-ai-enhancement" ]; then
+    echo "❌ 仓库目录不存在，需要克隆..."
+    git clone https://github.com/xafeng228/maomao-ai-enhancement.git
+    if [ $? -ne 0 ]; then
+        echo "❌ 克隆失败，请检查网络和权限"
+        exit 1
+    fi
+fi
+
+cd maomao-ai-enhancement
+
+# 拉取最新代码
+echo "📥 拉取最新代码..."
+git pull origin main
+
+# 准备更新文件
+echo "📁 准备更新文件..."
+
+# 1. 复制Hermes Agent研究
+echo "   1. 复制Hermes Agent研究..."
+mkdir -p research/hermes_agent
+cp -r ../maomao-enhanced-system/research/hermes_agent_analysis.md research/hermes_agent/
+
+# 2. 复制最新记忆文件
+echo "   2. 复制最新记忆文件..."
+mkdir -p memory
+cp ../memory/2026-03-12.md memory/
+
+# 3. 复制执行总结报告
+echo "   3. 复制执行总结报告..."
+cp ../maomao-enhanced-system/execution_summary.md .
+
+# 4. 复制性能监控系统
+echo "   4. 复制性能监控系统..."
+mkdir -p monitoring
+cp ../maomao-enhanced-system/monitoring/simple_monitor.py monitoring/
+cp ../maomao-enhanced-system/monitoring/performance_monitor_fixed.py monitoring/
+
+# 5. 复制观察验证系统
+echo "   5. 复制观察验证系统..."
+mkdir -p enhancement/observation_logs
+cp ../enhancement/observation_verification_plan.md enhancement/
+cp ../enhancement/automated_observation.py enhancement/
+cp ../enhancement/observation_logs/2026-03-12_observation_log.md enhancement/observation_logs/
+
+# 6. 更新README.md
+echo "   6. 更新README.md..."
+cat > README.md << 'EOR'
 # 毛毛AI增强项目 (MaoMao AI Enhancement Project)
 
 ## 🎯 项目概述
 毛毛AI从工具升级为完整系统的增强项目，实现四维能力提升。
 
 ## 📅 最新更新
-- **更新时间**: 2026-03-12 07:35 GMT+8
+- **更新时间**: 2026-03-12 07:30 GMT+8
 - **更新内容**: 
   1. Hermes Agent研究分析报告
   2. 最新记忆文件 (2026-03-12)
@@ -119,6 +174,31 @@ maomao-ai-enhancement/
 
 ---
 
-**最后更新**: 2026-03-12 07:35 GMT+8  
+**最后更新**: 2026-03-12 07:30 GMT+8  
 **项目状态**: 🔄 活跃开发中  
 **目标**: 将毛毛AI打造为专业的投研AI助手 🧠
+EOR
+
+# 提交更新
+echo "📝 提交更新..."
+git add .
+git commit -m "更新: Hermes Agent研究 + 最新记忆 + 执行总结 + 监控系统
+
+- 添加Hermes Agent研究分析报告
+- 更新最新记忆文件 (2026-03-12)
+- 添加执行总结报告
+- 集成性能监控系统
+- 添加观察验证系统
+- 更新README.md项目说明
+
+更新时间: 2026-03-12 07:30 GMT+8"
+
+echo "🚀 推送更新到GitHub..."
+git push origin main
+
+if [ $? -eq 0 ]; then
+    echo "✅ GitHub更新成功!"
+    echo "🌐 仓库地址: https://github.com/xafeng228/maomao-ai-enhancement"
+else
+    echo "❌ GitHub推送失败，请检查网络和权限"
+fi
