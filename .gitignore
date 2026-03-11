@@ -1,0 +1,121 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data files
+data/
+*.csv
+*.xlsx
+*.xls
+*.db
+*.sqlite
+*.pkl
+*.pickle
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Secrets
+secrets.json
+config.json
+*.key
+*.pem
+
+# Test coverage
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# ========================
+# 🔒 安全配置 - 绝对不要提交
+# ========================
+
+# API密钥和敏感配置
+.env
+.env.*
+!.env.example
+config.json
+secrets.json
+credentials.json
+*.key
+*.pem
+*.crt
+*.cert
+
+# 个人配置
+personal/
+private/
+secret/
+
+# 日志文件（可能包含敏感信息）
+*.log
+logs/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 备份文件
+*.bak
+*.backup
+
+# 系统文件
+.DS_Store
+Thumbs.db
