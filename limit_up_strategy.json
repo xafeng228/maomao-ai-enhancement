@@ -1,0 +1,28 @@
+{
+  "high_confidence_stocks": [
+    {
+      "code": "2445",
+      "name": "中南文化",
+      "confidence": 0.93
+    },
+    {
+      "code": "2150",
+      "name": "正泰电源",
+      "confidence": 0.79
+    },
+    {
+      "code": "537",
+      "name": "绿发电力",
+      "confidence": 0.95
+    }
+  ],
+  "medium_confidence_stocks": [
+    {
+      "code": "2455",
+      "name": "百川股份",
+      "confidence": 0.7
+    }
+  ],
+  "risk_warnings": [],
+  "general_strategy": "\n涨停板参与策略建议:\n1. 选择条件:\n   - 连板数: 1-3板为佳\n   - 封板资金: 大于5000万\n   - 换手率: 10%-30%之间\n   - 炸板次数: 0次最佳\n   \n2. 买入时机:\n   - 首次封板后次日开盘\n   - 分时回调至均线附近\n   \n3. 风险控制:\n   - 止损: -5%\n   - 止盈: +10-20%\n   - 仓位: 单只不超过总资金10%\n   \n4. 注意事项:\n   - 避免高位接力\n   - 关注板块效应\n   - 注意大盘环境\n            "
+}
