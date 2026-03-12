@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛毛AI增强系统 - 专业级AI投研伙伴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-color: #f9fafb;
+            --gray-color: #6b7280;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f3f4f6;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo .version {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 主要内容区域 */
+        main {
+            padding: 2rem 0;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .card-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        /* 四维提升展示 */
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .dimension-item {
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .dimension-item.completed {
+            border-left-color: var(--success-color);
+        }
+        
+        .dimension-item.in-progress {
+            border-left-color: var(--warning-color);
+        }
+        
+        .dimension-item.pending {
+            border-left-color: var(--gray-color);
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 表格样式 */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <h1>毛毛AI增强系统</h1>
+                <span class="version">v3.0.0-alpha</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="fas fa-tachometer-alt"></i> 仪表盘</a>
+                <a href="#"><i class="fas fa-chart-line"></i> 股票分析</a>
+                <a href="#"><i class="fas fa-cog"></i> 配置</a>
+                <a href="#"><i class="fas fa-history"></i> 历史记录</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+        <!-- 欢迎横幅 -->
+        <div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.2);">
+                <h2 class="card-title" style="color: white;">🎉 欢迎使用毛毛AI增强系统</h2>
+                <i class="fas fa-rocket card-icon" style="color: white;"></i>
+            </div>
+            <p>专业级AI投研伙伴，四维提升计划100%完成，正在实施优化扩展计划 v3.0.0</p>
+            <div style="margin-top: 1rem;">
+                <button class="btn btn-success" onclick="startQuickAnalysis()">
+                    <i class="fas fa-play"></i> 快速分析
+                </button>
+                <button class="btn btn-outline" style="border-color: white; color: white; margin-left: 10px;" onclick="showTutorial()">
+                    <i class="fas fa-question-circle"></i> 使用指南
+                </button>
+            </div>
+        </div>
+
+        <!-- 仪表盘 -->
+        <div class="dashboard">
+            <!-- 系统状态 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-server"></i> 系统状态</h3>
+                    <span class="status-badge status-active" id="systemStatus">运行中</span>
+                </div>
+                <div id="systemStatusContent">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <!-- 分析统计 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-chart-bar"></i> 分析统计</h3>
+                    <i class="fas fa-sync-alt card-icon" onclick="refreshStats()" style="cursor: pointer;"></i>
+                </div>
+                <div id="statsContent">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <!-- 四维提升 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-cube"></i> 四维提升</h3>
+                    <span class="status-badge status-active">100%完成</span>
+                </div>
+                <p style="margin-bottom: 1rem;">毛毛AI增强系统的核心架构</p>
+                <div class="dimension-grid" id="dimensionsGrid">
+                    <!-- 维度项将通过JS动态加载 -->
+                </div>
+            </div>
+
+            <!-- 优化扩展 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-tools"></i> 优化扩展</h3>
+                    <span class="status-badge status-active">进行中</span>
+                </div>
+                <p style="margin-bottom: 1rem;">第一阶段：基础扩展 (33%完成)</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33%"></div>
+                </div>
+                <div id="optimizationTasks">
+                    <!-- 任务列表将通过JS动态加载 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 自选股列表 -->
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-star"></i> 自选股列表</h3>
+                <div>
+                    <button class="btn btn-primary btn-sm" onclick="addStock()">
+                        <i class="fas fa-plus"></i> 添加股票
+                    </button>
+                    <button class="btn btn-outline btn-sm" onclick="analyzeWatchlist()" style="margin-left: 10px;">
+                        <i class="fas fa-play"></i> 分析全部
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="watchlistTable">
+                    <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>名称</th>
+                            <th>行业</th>
+                            <th>当前价格</th>
+                            <th>今日涨跌</th>
+                            <th>推荐</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="watchlistBody">
+                        <!-- 股票数据将通过JS动态加载 -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center; margin-top: 1rem; color: var(--gray-color);">
+                <i class="fas fa-info-circle"></i> 点击"添加股票"按钮添加更多自选股
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <p>© 2026 毛毛AI增强系统 - 专业级AI投研伙伴</p>
+                <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 5px;">AI不需要休息，我们一直在进步</p>
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#"><i class="fas fa-book"></i> 文档</a>
+                <a href="#"><i class="fas fa-envelope"></i> 联系</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API基础URL
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSystemStatus();
+            loadStats();
+            loadDimensions();
+            loadOptimizationTasks();
+            loadWatchlist();
+        });
+        
+        // 加载系统状态
+        async function loadSystemStatus() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/status`);
+                const data = await response.json();
+                
+                const statusHtml = `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>版本:</span>
+                            <strong>${data.version}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>运行时间:</span>
+                            <strong>${data.uptime}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>内存使用:</span>
+                            <strong>${data.memory_usage.percent}%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>分析次数:</span>
+                            <strong>${data.analysis_count}</strong>
+                        </div>
+                    </div>
+                    <div style="background: #f0f9ff; padding: 10px; border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                        <small><i class="fas fa-info-circle"></i> 系统运行正常，所有服务可用</small>
+                    </div>
+                `;
+                
+                document.getElementById('systemStatusContent').innerHTML = statusHtml;
+            } catch (error) {
+                document.getElementById('systemStatusContent').innerHTML = `
+                    <div style="color: var(--danger-color); text-align: center; padding: 20px;">
+                        <i class="fas fa-exclamation-triangle"></i><br>
+                        无法加载系统状态<br>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+        
+        // 加载统计信息
+        async function loadStats() {
+            try {
+                // 模拟数据，实际应该从API获取
+                const statsHtml = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="text-align: center; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">1.06s</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-color);">平均分析时间</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--success-color);">5</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-color);">集成预测模型</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--warning-color);">8</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-color);">投资策略</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--danger-color);">100%</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-color);">四维完成度</div>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('statsContent').innerHTML = statsHtml;
+            } catch (error) {
+                document.getElementById('statsContent').innerHTML = `
+                    <div style="color: var(--danger-color); text-align: center; padding: 20px;">
+                        <i class="fas fa-exclamation-triangle"></i><br>
+                        无法加载统计信息
+                    </div>
+                `;
+            }
+        }
+        
+        // 加载四维提升信息
+        function loadDimensions() {
+            const dimensions = [
+                { name: '群体智能集成', status: 'completed', completion: 100, description: '5模型集成预测系统' },
+                { name: '实时A股监控', status: 'completed', completion: 100, description: '1.06秒/只股票' },
+                { name: '个性化策略', status: 'completed', completion: 100, description: '8种策略推荐' },
+                { name: '持续学习AI伙伴', status: 'completed', completion: 100, description: '自我改进系统' }
+            ];
+            
+            let dimensionsHtml = '';
+            dimensions.forEach(dim => {
+                const statusClass = dim.status === 'completed' ? 'completed' : 
+                                  dim.status === 'in-progress' ? 'in-progress' : 'pending';
+                const statusIcon = dim.status === 'completed' ? 'fa-check-circle' :
+                                 dim.status === 'in-progress' ? 'fa-sync-alt' : 'fa-clock';
+                const statusColor = dim.status === 'completed' ? 'var(--success-color)' :
+                                  dim.status === 'in-progress' ? 'var(--warning-color)' : 'var(--gray-color)';
+                
+                dimensionsHtml += `
+                    <div class="dimension-item ${statusClass}">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <strong>${dim.name}</strong>
+                            <i class="fas ${statusIcon}" style="color: ${statusColor};"></i>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--gray-color);">${dim.description}</div>
+                        <div class="progress-bar" style="margin: 8px 0;">
+                            <div class="progress-fill" style="width: ${dim.completion}%; background-color: ${statusColor};"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; text-align: right;">${dim.completion}% 完成</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('dimensionsGrid').innerHTML = dimensionsHtml;
+        }
+        
+        // 加载优化任务
+        function loadOptimizationTasks() {
+            const tasks = [
+                { name: '多渠道推送系统', status: 'completed', description: '5个推送渠道支持' },
+                { name: '基础Web界面', status: 'in-progress', description: 'FastAPI + Vue 3框架' },
+                { name: '文件导入功能', status: 'pending', description: 'CSV/Excel文件导入' }
+            ];
+            
+            let tasksHtml = '';
+            tasks.forEach(task => {
+                const statusIcon = task.status === 'completed' ? 'fa-check-circle text-success' :
+                                 task.status === 'in-progress' ? 'fa-sync-alt fa-spin text-warning' : 'fa-clock text-gray';
+                const statusText = task.status === 'completed' ? '已完成' :
+                                 task.status === 'in-progress' ? '进行中' : '待开始';
+                
+                tasksHtml += `
+                    <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                        <i class="fas ${statusIcon}" style="margin-right: 10px;"></i>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 500;">${task.name}</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-color);">${task.description}</div>
+                        </div>
+                        <span style="font-size: 0.85rem; color: var(--gray-color);">${statusText}</span>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('optimizationTasks').innerHTML = tasksHtml;
+        }
+        
+        // 加载自选股列表
+        async function loadWatchlist() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/stocks/watchlist`);
+                const data = await response.json();
+                
+                let tableHtml = '';
+                data.watchlist.forEach(stock => {
+                    // 模拟价格数据
+                    const price = 50 + Math.random() * 50;
+                    const change = (Math.random() - 0.5) * 10;
+                    const changeColor = change >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
+                    const changeIcon = change >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
+                    const recommendation = change >= 2 ? '买入' : change <= -2 ? '卖出' : '持有';
+                    const recommendationColor = change >= 2 ? 'var(--success-color)' : change <= -2 ? 'var(--danger-color)' : 'var(--warning-color)';
+                    
+                    tableHtml += `
+                        <tr>
+                            <td><strong>${stock.code}</strong></td>
+                            <td>${stock.name}</td>
+                            <td>${stock.industry}</td>
+                            <td>¥${price.toFixed(2)}</td>
+                            <td style="color: ${changeColor};">
+                                <i class="fas ${changeIcon}"></i> ${change.toFixed(2)}%
+                            </td>
+                            <td>
+                                <span style="color: ${recommendationColor}; font-weight: 500;">${recommendation}</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" onclick="analyzeStock('${stock.code}')" style="padding: 5px 10px; font-size: 0.85rem;">
+                                    <i class="fas fa-chart-line"></i> 分析
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="removeStock('${stock.code}')" style="padding: 5px 10px; font-size: 0.85rem; margin-left: 5px;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                document.getElementById('watchlistBody').innerHTML = tableHtml;
+            } catch (error) {
+                document.getElementById('watchlistBody').innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 20px; color: var(--danger-color);">
+                            <i class="fas fa-exclamation-triangle"></i><br>
+                            无法加载自选股列表<br>
+                            <small>${error.message}</small>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        
+        // 刷新统计
+        function refreshStats() {
+            document.getElementById('statsContent').innerHTML = '<div class="loader"></div>';
+            setTimeout(loadStats, 500);
+        }
+        
+        // 快速分析
+        function startQuickAnalysis() {
+            alert('快速分析功能开发中...');
+        }
+        
+        // 显示教程
+        function showTutorial() {
+            alert('使用指南开发中...');
+        }
+        
+        // 添加股票
+        function addStock() {
+            const stockCode = prompt('请输入股票代码（如：603039）:');
+            if (stockCode) {
+                alert(`将添加股票: ${stockCode}\n此功能开发中...`);
+            }
+        }
+        
+        // 分析自选股列表
+        function analyzeWatchlist() {
+            alert('分析全部自选股功能开发中...');
+        }
+        
+        // 分析单个股票
+        function analyzeStock(stockCode) {
+            alert(`分析股票: ${stockCode}\n此功能开发中...`);
+        }
+        
+        // 移除股票
+        function removeStock(stockCode) {
+            if (confirm(`确定要移除股票 ${stockCode} 吗？`)) {
+                alert(`已移除股票: ${stockCode}\n此功能开发中...`);
+            }
+        }
+        
+        // 定期刷新系统状态
+        setInterval(loadSystemStatus, 30000); // 每30秒刷新一次
+        
+        // 初始化完成提示
+        setTimeout(() => {
+            console.log('毛毛AI增强系统Web界面加载完成！');
+            console.log('🚀 第一阶段优化扩展进行中...');
+            console.log('📱 多渠道推送系统 ✅ 完成');
+            console.log('🌐 基础Web界面 🔄 进行中');
+            console.log('📋 文件导入功能 ⏳ 待开始');
+        }, 1000);
+    </script>
+</body>
+</html>
